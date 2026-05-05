@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Textos Sagrados — Estudio Crítico y Comparado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0d0b;
+  --bg2: #161410;
+  --bg3: #1e1b16;
+  --bg4: #252118;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --gold: #c9a84c;
+  --gold2: #e8c96a;
+  --gold-dim: rgba(201,168,76,0.15);
+  --text: #f0ead8;
+  --text2: #a89e87;
+  --text3: #6b6355;
+  --accent-islam: #2d7a5f;
+  --accent-catholic: #5a3e8a;
+  --accent-orthodox: #8a3e3e;
+  --accent-protestant: #2e5a8a;
+  --accent-judaism: #8a6b2e;
+  --accent-hinduism: #8a4a2e;
+  --accent-buddhism: #2e6b8a;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: .4;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  height: 56px;
+  background: rgba(14,13,11,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+}
+.nav-links { display: flex; gap: 4px; }
+.nav-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all .2s;
+}
+.nav-btn:hover, .nav-btn.active { background: var(--gold-dim); color: var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-ornament {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: .75rem;
+  position: relative;
+}
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: 15px;
+  color: var(--text2);
+  max-width: 540px;
+  margin: 0 auto 2rem;
+  font-weight: 300;
+}
+.hero-badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 0.5px solid var(--border2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+}
+
+/* ── MAIN LAYOUT ── */
+main { position: relative; z-index: 1; }
+
+.section {
+  display: none;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeIn .3s ease;
+}
+.section.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ── RELIGION SELECTOR ── */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.religion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 2.5rem;
+}
+
+.rel-card {
+  position: relative;
+  padding: 1.25rem;
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all .2s;
+  overflow: hidden;
+}
+.rel-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.rel-card:hover { border-color: var(--border2); background: var(--bg3); }
+.rel-card:hover::before, .rel-card.selected::before { opacity: 1; }
+.rel-card.selected { border-color: var(--border2); background: var(--bg3); }
+.rel-icon { font-size: 22px; margin-bottom: 8px; line-height: 1; }
+.rel-name { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--text); margin-bottom: 2px; }
+.rel-followers { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text3); letter-spacing: 0.04em; }
+
+/* ── BOOKS PANEL ── */
+.books-panel {
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.books-panel-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.books-panel-icon { font-size: 28px; flex-shrink: 0; }
+.books-panel-title { font-family: 'Playfair Display', serif; font-size: 19px; color: var(--text); margin-bottom: 4px; }
+.books-panel-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+.book-section-label {
+  padding: .6rem 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  background: var(--bg);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.book-row {
+  display: flex; align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 0.5px solid var(--border);
+  gap: 14px;
+  transition: background .15s;
+}
+.book-row:last-child { border-bottom: none; }
+.book-row:hover { background: var(--bg3); }
+.book-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.book-info { flex: 1; min-width: 0; }
+.book-title-text { font-size: 14px; color: var(--text); margin-bottom: 2px; }
+.book-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text3); }
+.book-source-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--gold);
+  text-decoration: none;
+  border: 0.5px solid rgba(201,168,76,0.3);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all .15s;
+}
+.book-source-link:hover { background: var(--gold-dim); }
+
+/* ── LEARN SECTION ── */
+.learn-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.learn-sidebar {
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: sticky;
+  top: 70px;
+}
+.sidebar-header {
+  padding: .875rem 1rem;
+  border-bottom: 0.5px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.sidebar-rel {
+  padding: .75rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text3);
+  border-bottom: 0.5px solid var(--border);
+  background: var(--bg);
+}
+.sidebar-book {
+  display: flex; align-items: center; gap: 8px;
+  padding: .625rem 1rem;
+  cursor: pointer;
+  border-bottom: 0.5px solid var(--border);
+  transition: background .15s;
+  font-size: 12px;
+  color: var(--text2);
+}
+.sidebar-book:last-child { border-bottom: none; }
+.sidebar-book:hover { background: var(--bg3); color: var(--text); }
+.sidebar-book.active { background: var(--gold-dim); color: var(--gold); }
+.sidebar-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── CARDS ── */
+.cards-area { display: flex; flex-direction: column; gap: 1rem; }
+
+.learn-top {
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: .5rem;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+}
+.learn-top-title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--text); margin-bottom: 4px; }
+.learn-top-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text3); }
+.source-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 0.5px solid rgba(201,168,76,0.3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--gold);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all .15s;
+}
+.source-pill:hover { background: var(--gold-dim); }
+
+.card {
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.card:hover { border-color: var(--border2); }
+
+.card-img {
+  width: 100%; max-height: 220px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 0.5px solid var(--border);
+}
+.card-img-caption {
+  padding: .4rem 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  letter-spacing: .04em;
+  background: var(--bg3);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.card-body { padding: 1.25rem 1.5rem; }
+
+.card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  letter-spacing: .1em;
+  margin-bottom: .5rem;
+}
+.card-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: var(--gold2);
+  margin-bottom: .625rem;
+  line-height: 1.35;
+}
+.card-text {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.75;
+}
+.card-text p { margin-bottom: .75rem; }
+.card-text p:last-child { margin-bottom: 0; }
+
+.card-quote {
+  margin: 1rem 0;
+  padding: .875rem 1.25rem;
+  border-left: 2px solid var(--gold);
+  background: var(--gold-dim);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.65;
+}
+.card-quote cite {
+  display: block;
+  font-style: normal;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  margin-top: .5rem;
+  letter-spacing: .06em;
+}
+
+.card-note {
+  margin-top: 1rem;
+  padding: .875rem 1rem;
+  background: var(--bg3);
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+}
+.card-note-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: .375rem;
+}
+.card-note-text { font-size: 12px; color: var(--text2); line-height: 1.65; }
+
+.card-summary-notice {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-top: 1rem;
+  padding: .75rem 1rem;
+  background: rgba(201,168,76,0.07);
+  border-radius: var(--radius);
+  border: 0.5px solid rgba(201,168,76,0.2);
+  font-size: 12px;
+  color: var(--text3);
+}
+.card-summary-notice a { color: var(--gold); }
+
+/* ── PROGRESS BAR ── */
+.progress-wrap {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 1rem;
+}
+.progress-track {
+  flex: 1; height: 3px;
+  background: var(--bg4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+.progress-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  white-space: nowrap;
+}
+
+/* ── CARD NAV ── */
+.card-nav {
+  display: flex; gap: 8px; justify-content: flex-end;
+  margin-top: 1rem;
+}
+.nav-arrow {
+  padding: 7px 16px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.nav-arrow:hover { background: var(--bg4); color: var(--text); }
+.nav-arrow.primary { background: var(--gold-dim); color: var(--gold); border-color: rgba(201,168,76,0.3); }
+.nav-arrow.primary:hover { background: rgba(201,168,76,0.25); }
+
+/* ── ABOUT ── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+.about-card {
+  padding: 1.25rem;
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.about-card h3 { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--gold2); margin-bottom: .5rem; }
+.about-card p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.source-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 13px; }
+.source-table th {
+  text-align: left;
+  padding: .5rem .75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  border-bottom: 0.5px solid var(--border);
+}
+.source-table td {
+  padding: .625rem .75rem;
+  border-bottom: 0.5px solid var(--border);
+  color: var(--text2);
+  vertical-align: top;
+}
+.source-table tr:last-child td { border-bottom: none; }
+.source-table a { color: var(--gold); text-decoration: none; }
+.source-table a:hover { text-decoration: underline; }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text3);
+}
+.empty-icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: .4; }
+.empty-text { font-size: 14px; line-height: 1.7; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .learn-grid { grid-template-columns: 1fr; }
+  .learn-sidebar { position: static; }
+  .about-grid { grid-template-columns: 1fr; }
+  nav { padding: 0 1rem; }
+  .section { padding: 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">☩ Textos Sagrados</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showSection('explore')">Explorar</button>
+    <button class="nav-btn" onclick="showSection('learn')">Aprender</button>
+    <button class="nav-btn" onclick="showSection('about')">Fuentes</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-ornament"></div>
+  <h1>Estudio <em>crítico</em> de los<br>textos sagrados</h1>
+  <p class="hero-sub">Una guía objetiva y transparente basada en fuentes académicas primarias. Conocimiento para entender, no para juzgar.</p>
+  <div class="hero-badges">
+    <span class="badge">FUENTES PRIMARIAS</span>
+    <span class="badge">SIN SESGO EDITORIAL</span>
+    <span class="badge">ENLACES DIRECTOS A TEXTOS</span>
+    <span class="badge">ESTUDIO PROGRESIVO</span>
+  </div>
+</div>
+
+<main>
+
+<!-- ════════════════════════════════════════ EXPLORAR ══ -->
+<section class="section active" id="sec-explore">
+  <div class="section-title">Selecciona una tradición religiosa</div>
+  <div class="religion-grid" id="rel-grid"></div>
+  <div id="books-panel-wrap"></div>
+</section>
+
+<!-- ════════════════════════════════════════ APRENDER ══ -->
+<section class="section" id="sec-learn">
+  <div class="section-title">Selecciona un texto para estudiar</div>
+  <div class="learn-grid">
+    <div class="learn-sidebar" id="learn-sidebar">
+      <div class="sidebar-header">Textos disponibles</div>
+      <div id="sidebar-list"></div>
+    </div>
+    <div id="learn-main">
+      <div class="empty-state">
+        <div class="empty-icon">📜</div>
+        <div class="empty-text">Selecciona un texto en el panel izquierdo<br>para comenzar el estudio por tarjetas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ FUENTES ══ -->
+<section class="section" id="sec-about">
+  <div class="section-title">Sobre este proyecto</div>
+  <div style="max-width:680px">
+    <p style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:1.5rem">
+      Este proyecto es un estudio crítico y comparado de los textos sagrados de las principales tradiciones religiosas del mundo. No pretende ser apologético ni anticlerical: su objetivo es que cualquier persona pueda leer, con contexto académico, lo que dicen realmente estos textos.
+    </p>
+    <p style="font-size:14px;color:var(--text3);margin-bottom:2rem">
+      Todo el contenido está extraído de fuentes de dominio público o de repositorios académicos reconocidos. Cada tarjeta enlaza directamente al texto original para que puedas verificar cualquier afirmación.
+    </p>
+
+    <div class="section-title">Fuentes primarias utilizadas</div>
+    <table class="source-table">
+      <thead><tr><th>Tradición</th><th>Texto</th><th>Fuente</th><th>Tipo</th></tr></thead>
+      <tbody>
+        <tr><td>Islam</td><td>Corán (trad. española)</td><td><a href="https://tanzil.net" target="_blank">tanzil.net</a></td><td>Dominio público</td></tr>
+        <tr><td>Islam</td><td>Hadith (Bujari, Muslim)</td><td><a href="https://sunnah.com" target="_blank">sunnah.com</a></td><td>Repositorio académico abierto</td></tr>
+        <tr><td>Judaísmo</td><td>Torah, Talmud, Mishnah</td><td><a href="https://www.sefaria.org" target="_blank">sefaria.org</a></td><td>Código abierto, bilingüe</td></tr>
+        <tr><td>Cristianismo</td><td>Biblia (todas las versiones)</td><td><a href="https://www.bible.com" target="_blank">bible.com</a> · <a href="https://www.biblegateway.com" target="_blank">biblegateway.com</a></td><td>Versiones en dominio público</td></tr>
+        <tr><td>Hinduismo</td><td>Vedas, Upanishads, Gita</td><td><a href="https://www.sacred-texts.com" target="_blank">sacred-texts.com</a></td><td>Dominio público</td></tr>
+        <tr><td>Budismo</td><td>Tipitaka Pali</td><td><a href="https://suttacentral.net" target="_blank">suttacentral.net</a></td><td>Código abierto, multilingüe</td></tr>
+        <tr><td>Todas</td><td>Contexto académico</td><td><a href="https://www.jstor.org" target="_blank">jstor.org</a> · Wikipedia académica</td><td>Revisión por pares</td></tr>
+      </tbody>
+    </table>
+
+    <div class="about-grid" style="margin-top:2rem">
+      <div class="about-card">
+        <h3>Principios editoriales</h3>
+        <p>Cada tarjeta distingue entre (1) lo que dice el texto, (2) el contexto histórico en que fue escrito, y (3) cómo lo interpreta la tradición académica contemporánea. Las notas críticas no son opinión del autor: reflejan el debate académico documentado.</p>
+      </div>
+      <div class="about-card">
+        <h3>Qué no es este proyecto</h3>
+        <p>No es un ataque a ninguna fe ni una defensa de ninguna. No pretende determinar qué es verdad religiosamente. Es una herramienta para leer los textos con información contextual que normalmente no está disponible para el lector no especializado.</p>
+      </div>
+      <div class="about-card">
+        <h3>Transparencia total</h3>
+        <p>Cada afirmación que se hace sobre un texto tiene un enlace directo al fragmento original. Si crees que algo está mal interpretado o sacado de contexto, el enlace te permite comprobarlo. El debate informado es bienvenido.</p>
+      </div>
+      <div class="about-card">
+        <h3>Código abierto</h3>
+        <p>Este proyecto es de código abierto y está publicado en GitHub. Cualquiera puede revisar su código, proponer correcciones o añadir nuevos textos siguiendo los mismos estándares editoriales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════
+
+const RELIGIONS = [
+  {
+    id: 'islam', icon: '☽', name: 'Islam', accent: '#2d7a5f',
+    followers: '1.900M creyentes',
+    desc: 'El islam tiene un canon compacto pero estratificado. El Corán es la palabra directa de Dios; la Sunna del Profeta se recoge en los Hadith. La diferencia entre ambas es crucial para entender el fanatismo.',
+    books: [
+      {
+        id: 'quran', title: 'Corán (القرآن)', dot: '#2d7a5f',
+        meta: '114 suras · ~77.000 palabras · compilado ~650 d.C.',
+        section: 'Revelación directa',
+        sourceLabel: 'tanzil.net', sourceUrl: 'https://tanzil.net',
+        isSummarized: false,
+        fullTextUrl: 'https://tanzil.net',
+        cards: [
+          {
+            heading: 'Qué es el Corán',
+            text: '<p>El Corán es el texto sagrado central del islam. Se considera la palabra literal e increada de Dios (Alá), dictada al profeta Mahoma a través del ángel Yibril entre el 610 y el 632 d.C. en las ciudades de La Meca y Medina.</p><p>Está dividido en 114 capítulos llamados <em>suras</em>, y cada versículo se denomina <em>aya</em> (señal). Su extensión es similar al Nuevo Testamento cristiano.</p>',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Quran_karim.jpg/640px-Quran_karim.jpg',
+            imageCaption: 'Ejemplar del Corán caligráfico · Wikimedia Commons (dominio público)',
+            note: null
+          },
+          {
+            heading: 'Orden de los textos: no es cronológico',
+            text: '<p>El Corán no está ordenado cronológicamente. Las suras se ordenan aproximadamente de más largas a más cortas. Esto es teológicamente importante: las suras de <strong>La Meca</strong> (primeras en revelarse, ~610–622 d.C.) son más espirituales y tolerantes. Las suras de <strong>Medina</strong> (más tardías, ~622–632 d.C.) son más legales y marciales.</p>',
+            quote: { text: 'No hay coacción en la religión. La vía recta se distingue claramente del error.', cite: 'Corán 2:256 (sura de Medina, de las más citadas en favor de la tolerancia)' },
+            note: { label: 'Por qué importa', text: 'La doctrina del nasj (abrogación) establece que una revelación tardía puede cancelar una anterior. Esto genera un debate fundamental: ¿los versículos marciales del capítulo 9 anulan el "no hay coacción" del 2:256? Los literalistas dicen sí; los reformistas dicen no.' }
+          },
+          {
+            heading: 'Los versículos más controvertidos',
+            text: '<p>El capítulo 9 (Surat al-Tawba, "El Arrepentimiento") es el único del Corán sin la fórmula inicial de misericordia. Contiene los versículos más utilizados por grupos radicales:</p>',
+            quote: { text: 'Cuando hayan transcurrido los meses sagrados, matad a los politeístas donde los encontréis, capturadles, asediadles y acechadles en todo lugar de emboscada.', cite: 'Corán 9:5 — "El versículo de la espada"' },
+            note: { label: 'Contexto académico', text: 'Los académicos señalan que este versículo se refiere a un contexto histórico específico: la ruptura de un tratado de paz con tribus politeístas de Arabia. Los versículos siguientes (9:6, 9:7) ofrecen protección a quienes pidan refugio. El debate es si es un mandato universal o una instrucción histórica concreta.' }
+          },
+          {
+            heading: 'Cómo se compiló el texto',
+            text: '<p>Durante la vida de Mahoma, el Corán fue transmitido oralmente y en fragmentos escritos en huesos, hojas de palma y piedras. La primera compilación parcial se atribuye al califa Abu Bakr (~632–634 d.C.) tras la batalla de Yamama, en la que murieron muchos memorizadores del Corán (<em>hafiz</em>).</p><p>La versión definitiva fue encargada por el califa Utmán ibn Affán alrededor del año 650 d.C. Se destruyeron las versiones alternativas para garantizar la uniformidad.</p>',
+            note: { label: 'Debate textual', text: 'La destrucción de las variantes por Utmán es un hecho históricamente documentado que los chiíes han señalado como censura política. Estudios modernos de manuscritos (p.ej. los manuscritos de Saná, Yemen, descubiertos en 1972) muestran variaciones ortográficas tempranas, aunque los académicos discrepan sobre su relevancia doctrinal.' }
+          }
+        ]
+      },
+      {
+        id: 'bukhari', title: 'Sahih al-Bujari', dot: '#0F6E56',
+        meta: 'Hadith sunní · compilado ~846 d.C.',
+        section: 'Sunna — dichos del Profeta',
+        sourceLabel: 'sunnah.com', sourceUrl: 'https://sunnah.com/bukhari',
+        isSummarized: false,
+        fullTextUrl: 'https://sunnah.com/bukhari',
+        cards: [
+          {
+            heading: 'Qué son los Hadith',
+            text: '<p>Los Hadith son relatos sobre los dichos y actos del profeta Mahoma. Forman la <em>Sunna</em> (costumbre del Profeta) y son la segunda fuente del derecho islámico (fiqh) tras el Corán. Sin los Hadith, preceptos como las cinco oraciones diarias, el ayuno del Ramadán en su forma exacta, o la lapidación por adulterio no podrían derivarse del Corán solo.</p>',
+            note: { label: 'Dato clave', text: 'La lapidación por adulterio (rajm) NO aparece en el Corán. Está en los Hadith. Este es uno de los ejemplos más nítidos de cómo la Sunna añade legislación que el Corán no contiene, y la fuente principal de debate entre reformistas e islamistas.' }
+          },
+          {
+            heading: 'Cómo se verifican: el isnad',
+            text: '<p>Cada hadith tiene dos partes: el <em>matn</em> (contenido del dicho) y el <em>isnad</em> (cadena de transmisores que lo avalan). Al-Bujari recopiló unos 600.000 hadith y consideró auténticos (<em>sahih</em>) solo 7.275, tras verificar meticulosamente la cadena de transmisión.</p>',
+            quote: { text: 'Nadie que haya mentido deliberadamente sobre mí merece sentarse en su lugar en el Fuego.', cite: 'Sahih al-Bujari 1:106 — justificación del rigor en la verificación' },
+            note: { label: 'Crítica académica', text: 'Los orientalistas Ignaz Goldziher (1890) y Joseph Schacht (1950) argumentaron que gran parte de los hadith son fabricaciones de los ss. VIII-IX proyectadas en boca del Profeta para legitimar posiciones jurídicas contemporáneas. Esta es la tesis académica dominante fuera del mundo islámico, y la más combatida dentro de él.' }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'catholicism', icon: '✝', name: 'Catolicismo', accent: '#5a3e8a',
+    followers: '1.400M creyentes',
+    desc: 'El catolicismo tiene el canon bíblico más extenso del cristianismo occidental y añade el Magisterio papal como fuente de revelación paralela a la Escritura. Esta doble autoridad es el eje de su diferencia con el protestantismo.',
+    books: [
+      {
+        id: 'genesis', title: 'Génesis (Biblia católica)', dot: '#5a3e8a',
+        meta: 'Primer libro del AT · ~50 capítulos',
+        section: 'Antiguo Testamento',
+        sourceLabel: 'biblegateway.com', sourceUrl: 'https://www.biblegateway.com/passage/?search=Genesis+1&version=RVR1960',
+        isSummarized: false,
+        fullTextUrl: 'https://www.biblegateway.com/passage/?search=Genesis+1&version=RVR1960',
+        cards: [
+          {
+            heading: 'Dos relatos de la Creación',
+            text: '<p>El Génesis contiene dos relatos de la Creación distintos y con diferencias significativas. En el <strong>primer relato</strong> (Gn 1:1–2:3), Dios crea en seis días y el ser humano es creado último, hombre y mujer al mismo tiempo. En el <strong>segundo relato</strong> (Gn 2:4–25), Dios crea primero al hombre de barro, luego los animales para hacerle compañía, y por último a la mujer de una costilla del hombre.</p>',
+            note: { label: 'Explicación académica', text: 'La hipótesis documentaria (Wellhausen, 1878) atribuye estos relatos a dos tradiciones distintas: el documento Sacerdotal (P, s. VI a.C.) y el Yahvista (J, s. X a.C.), unificadas por un editor posterior. Esta es la tesis del consenso académico. El catolicismo oficial la acepta en términos generales.' }
+          },
+          {
+            heading: 'El diluvio: paralelos con Mesopotamia',
+            text: '<p>La historia del diluvio de Noé (Gn 6–9) tiene paralelos directos con la <em>Epopeya de Gilgamesh</em> (Mesopotamia, ~1700 a.C.), redactada siglos antes que el texto bíblico. Ambas narran un gran diluvio, un héroe que construye un barco, la salvación de animales, el uso de aves para comprobar la retirada del agua, y el ofrecimiento de sacrificios al terminar.</p>',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Noahs_Ark.jpg/640px-Noahs_Ark.jpg',
+            imageCaption: 'El Arca de Noé · Edward Hicks, 1846 · Philadelphia Museum of Art (dominio público)',
+            note: { label: 'Implicación', text: 'Esto sugiere que los autores bíblicos adaptaron una narrativa mitológica preexistente del Oriente Próximo. Para el fundamentalismo, el diluvio es un hecho histórico literal. Para la teología crítica, es una reinterpretación teológica de un relato cultural compartido.' }
+          }
+        ]
+      },
+      {
+        id: 'humanae-vitae', title: 'Humanae Vitae (encíclica)', dot: '#7F77DD',
+        meta: 'Pablo VI · 1968 · moral sexual',
+        section: 'Magisterio pontificio',
+        sourceLabel: 'vatican.va', sourceUrl: 'https://www.vatican.va/content/paul-vi/es/encyclicals/documents/hf_p-vi_enc_25071968_humanae-vitae.html',
+        isSummarized: true,
+        fullTextUrl: 'https://www.vatican.va/content/paul-vi/es/encyclicals/documents/hf_p-vi_enc_25071968_humanae-vitae.html',
+        cards: [
+          {
+            heading: 'El documento que dividió al catolicismo',
+            text: '<p>La encíclica <em>Humanae Vitae</em> (1968) del papa Pablo VI prohíbe todos los métodos artificiales de contracepción. Fue publicada en contra del dictamen de la mayoría de la comisión pontificia creada para estudiar el tema, que había recomendado abrir la puerta a los anticonceptivos.</p>',
+            quote: { text: 'Queda excluidatoda acción que, o en previsión del acto conyugal, o en su realización, o en el desarrollo de sus consecuencias naturales, se proponga, como fin o como medio, hacer imposible la procreación.', cite: 'Humanae Vitae, §14 · Pablo VI, 1968' },
+            note: { label: 'Impacto y rechazo', text: 'Estudios sociológicos muestran que más del 80% de los católicos en Europa y Norteamérica usa anticonceptivos artificiales. La encíclica generó la mayor crisis de autoridad papal del s. XX. El teólogo Hans Küng y centenares de teólogos la rechazaron públicamente, algunos siendo posteriormente sancionados.' }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'judaism', icon: '✡', name: 'Judaísmo', accent: '#8a6b2e',
+    followers: '15M creyentes',
+    desc: 'El judaísmo posee la tradición textual más estratificada. El Tanaj es solo el primer nivel; el Talmud —debate rabínico de siglos— tiene igual o mayor peso práctico. La discusión es intrínsecamente sagrada.',
+    books: [
+      {
+        id: 'torah', title: 'Torah (תּוֹרָה)', dot: '#BA7517',
+        meta: '5 libros · Génesis a Deuteronomio',
+        section: 'Torah escrita — el núcleo',
+        sourceLabel: 'sefaria.org', sourceUrl: 'https://www.sefaria.org/Genesis.1?lang=bi',
+        isSummarized: false,
+        fullTextUrl: 'https://www.sefaria.org/texts/Torah',
+        cards: [
+          {
+            heading: 'La Torah: no solo "Biblia judía"',
+            text: '<p>La Torah (los cinco libros de Moisés) es para el judaísmo mucho más que un texto histórico: es la constitución divina del pueblo de Israel. Contiene 613 mandamientos (<em>mitzvot</em>) que regulan desde la dieta hasta la propiedad, el matrimonio y los rituales.</p><p>A diferencia del Antiguo Testamento cristiano, la Torah no se lee como preludio de nada: es el documento fundacional completo en sí mismo.</p>',
+            note: { label: 'Diferencia conceptual clave', text: 'El término "Antiguo Testamento" es una categoría cristiana que implica que estos textos son "superados" por el Nuevo Testamento. El judaísmo rechaza esta lectura: el Tanaj no es un prólogo. Esta diferencia epistemológica es la raíz del conflicto teológico entre judaísmo y cristianismo.' }
+          },
+          {
+            heading: 'Levítico: el código legal más controvertido',
+            text: '<p>El Levítico contiene el código legal más detallado y éticamente polémico de la Torah. Incluye las leyes de pureza ritual, los sacrificios animales, las normas dietéticas (kashrut) y los pasajes más citados en debates contemporáneos sobre moral sexual.</p>',
+            quote: { text: 'Si alguien yace con varón como se yace con mujer, ambos han cometido abominación. Serán muertos; su sangre caerá sobre ellos.', cite: 'Levítico 20:13 · traducción académica' },
+            note: { label: 'Debate interno en el judaísmo', text: 'El judaísmo ortodoxo mantiene que estas leyes son de obligado cumplimiento. El judaísmo conservador y reformista las reencuadra como parte del código levítico pre-exílico, comparable a las restricciones dietéticas, y no aplicables hoy. El movimiento LGBTQ+ judío ha producido una extensa literatura de respuesta a este texto.' }
+          }
+        ]
+      },
+      {
+        id: 'talmud', title: 'Talmud Babilónico', dot: '#EF9F27',
+        meta: '~500 d.C. · 2,7 millones de palabras',
+        section: 'Torah oral — interpretación rabínica',
+        sourceLabel: 'sefaria.org', sourceUrl: 'https://www.sefaria.org/texts/Talmud',
+        isSummarized: true,
+        fullTextUrl: 'https://www.sefaria.org/texts/Talmud',
+        cards: [
+          {
+            heading: 'El Talmud: un libro que no da respuestas',
+            text: '<p>El Talmud es la obra central del judaísmo rabínico. Con más de 2,7 millones de palabras repartidas en 63 tratados, es el comentario definitivo a la Mishnah (la primera codificación de la Torah oral). Lo que lo hace único entre los textos sagrados mundiales es su método: <em>no busca respuestas definitivas</em>.</p><p>El Talmud preserva deliberadamente las opiniones de la minoría junto a las de la mayoría. Un debate del siglo I puede continuar en el siglo V y quedar formalmente sin resolver.</p>',
+            quote: { text: 'Estas y aquellas son palabras del Dios vivo.', cite: 'Talmud Babilónico, Eruvin 13b — sobre dos escuelas con opiniones opuestas' },
+            note: { label: 'Por qué esto es importante', text: 'Esta epistemología es radicalmente distinta al dogmatismo cristiano o islámico, donde una postura debe ser la correcta y las demás herética o error. En el Talmud, la pluralidad de interpretaciones es en sí misma sagrada. Esto explica por qué el judaísmo ha producido tan poca violencia religiosa interna comparado con el islam o el cristianismo.' }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'hinduism', icon: 'ॐ', name: 'Hinduismo', accent: '#8a4a2e',
+    followers: '1.200M creyentes',
+    desc: 'El hinduismo no tiene un fundador ni un canon cerrado. Sus textos se dividen en Shruti (revelados, eternos) y Smriti (compuestos por humanos). En la práctica, el Bhagavad Gita supera en influencia a los Vedas que teóricamente son superiores.',
+    books: [
+      {
+        id: 'bhagavadgita', title: 'Bhagavad Gita', dot: '#EF9F27',
+        meta: '700 versos · parte del Mahabharata · ~200 a.C.–200 d.C.',
+        section: 'Smriti — textos compuestos por humanos',
+        sourceLabel: 'sacred-texts.com', sourceUrl: 'https://www.sacred-texts.com/hin/gita/index.htm',
+        isSummarized: false,
+        fullTextUrl: 'https://www.sacred-texts.com/hin/gita/index.htm',
+        cards: [
+          {
+            heading: 'El texto más leído del hinduismo',
+            text: '<p>El Bhagavad Gita ("Canción del Señor") es un poema filosófico de 700 versos incrustado en el sexto libro del Mahabharata. Narra la conversación entre el guerrero Arjuna y su cochero —que resulta ser el dios Krishna— justo antes de una batalla decisiva.</p><p>Arjuna se niega a luchar porque debe matar a sus propios parientes. Krishna le convence de que debe hacerlo.</p>',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Bhagavad_Gita%2C_a_19th_century_manuscript.jpg/640px-Bhagavad_Gita%2C_a_19th_century_manuscript.jpg',
+            imageCaption: 'Manuscrito del Bhagavad Gita, s. XIX · Wikimedia Commons (dominio público)',
+            note: null
+          },
+          {
+            heading: 'El deber de matar: dharma y violencia',
+            text: '<p>El argumento central de Krishna a Arjuna es que como <em>kshatriya</em> (casta guerrera), su deber (<em>dharma</em>) es luchar. Negarse a cumplir el deber propio de su casta es el verdadero pecado. Además, argumenta que el alma (atman) es inmortal: matar el cuerpo no destruye realmente a nadie.</p>',
+            quote: { text: 'Nunca nació el espíritu ni el espíritu cesará de ser jamás. Nunca hubo tiempo en que no era; el fin y el comienzo son sueños.', cite: 'Bhagavad Gita, 2:20' },
+            note: { label: 'La ambigüedad central', text: 'El Gita ha sido interpretado como (1) una alegoría del combate espiritual interior, (2) una justificación filosófica de la guerra justa, y (3) una defensa del sistema de castas. Gandhi lo usó como texto de no-violencia; Nathuram Godse, el asesino de Gandhi, también citó el Gita para justificar el asesinato.' }
+          },
+          {
+            heading: 'Las tres vías de liberación',
+            text: '<p>El Gita sistematiza tres caminos hacia la liberación (<em>moksha</em>) del ciclo de reencarnaciones:</p><p><strong>Jnana yoga</strong>: la vía del conocimiento filosófico. <strong>Karma yoga</strong>: la vía de la acción desinteresada (actuar sin apego al resultado). <strong>Bhakti yoga</strong>: la vía de la devoción personal a un dios.</p><p>Esta última es la más accesible y se convirtió en la base de la religiosidad hindú popular.</p>',
+            note: { label: 'Innovación teológica', text: 'La bhakti (devoción) rompe con la lógica ritual védica que requería sacerdotes especializados. El Gita democratizó el acceso a la liberación: cualquier persona, independientemente de su casta, puede alcanzar el moksha a través de la devoción. Esto fue revolucionario en el contexto de la India del s. II a.C.' }
+          }
+        ]
+      },
+      {
+        id: 'manusmriti', title: 'Manusmriti (Leyes de Manú)', dot: '#993C1D',
+        meta: '~200 a.C.–200 d.C. · derecho hindú',
+        section: 'Dharmashastra — textos legales',
+        sourceLabel: 'sacred-texts.com', sourceUrl: 'https://www.sacred-texts.com/hin/manu.htm',
+        isSummarized: true,
+        fullTextUrl: 'https://www.sacred-texts.com/hin/manu.htm',
+        cards: [
+          {
+            heading: 'El texto que codificó el sistema de castas',
+            text: '<p>El Manusmriti es el texto legal más influyente —y más polémico— del hinduismo. Codifica las obligaciones y prohibiciones de cada una de las cuatro castas (varna) y de los "intocables" (que están fuera del sistema). Fue utilizado por la administración colonial británica como base del "derecho hindú personal".</p>',
+            note: { label: 'Dato histórico documentado', text: 'B. R. Ambedkar, líder del movimiento dalit (intocables) y redactor de la Constitución india, quemó públicamente un ejemplar del Manusmriti el 25 de diciembre de 1927 como acto de protesta. La Constitución india de 1950 prohíbe la discriminación por casta, en contradicción directa con el Manusmriti.' }
+          },
+          {
+            heading: 'Lo que dice sobre las mujeres',
+            text: '<p>El Manusmriti contiene algunas de las prescripciones sobre el papel de la mujer más citadas en el debate sobre religión y derechos de género:</p>',
+            quote: { text: 'Día y noche las mujeres deben mantenerse dependientes de sus hombres; si se entregan a los placeres sensuales, deben ser mantenidas bajo control de sus familiares masculinos.', cite: 'Manusmriti 9:2–3 · trad. académica' },
+            note: { label: 'Contexto y debate', text: 'El hinduismo reformista (desde Ram Mohan Roy en el s. XIX) ha argumentado que el Manusmriti no es "El" libro sagrado del hinduismo sino uno entre muchos Dharmashastra, y que los Upanishads o el Gita representan mejor la esencia del hinduismo. El hinduismo político contemporáneo (Hindutva) mantiene una relación ambigua con el texto.' }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'buddhism', icon: '☸', name: 'Budismo', accent: '#2e6b8a',
+    followers: '520M creyentes',
+    desc: 'El budismo tiene el corpus textual más extenso y diverso. Sus tres grandes ramas (Theravada, Mahayana, Vajrayana) tienen textos sagrados distintos y parcialmente incompatibles. No hay dios creador.',
+    books: [
+      {
+        id: 'dhammapada', title: 'Dhammapada', dot: '#378ADD',
+        meta: '423 versos · parte del Tipitaka · ~3 a.C.',
+        section: 'Sutta Pitaka — discursos del Buda',
+        sourceLabel: 'suttacentral.net', sourceUrl: 'https://suttacentral.net/dhp',
+        isSummarized: false,
+        fullTextUrl: 'https://suttacentral.net/dhp',
+        cards: [
+          {
+            heading: 'El libro más leído del budismo',
+            text: '<p>El Dhammapada ("Camino de la Verdad") es una colección de 423 versos atribuidos directamente al Buda Gautama, organizados en 26 capítulos. Es el texto más traducido y leído del budismo Theravada y uno de los más accesibles de toda la tradición budista.</p>',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Dhammapada.jpg/640px-Dhammapada.jpg',
+            imageCaption: 'Manuscrito del Dhammapada · Wikimedia Commons (dominio público)',
+            note: null
+          },
+          {
+            heading: 'La mente como origen de todo',
+            text: '<p>El texto comienza con uno de los versos más conocidos de la literatura mundial:</p>',
+            quote: { text: 'La mente es el precursor de todas las acciones. Todas las acciones están lideradas por la mente, creadas por la mente. Si uno habla o actúa con una mente impura, el sufrimiento lo sigue como la rueda sigue al buey.', cite: 'Dhammapada 1:1-2' },
+            note: { label: 'Filosofía sin dios', text: 'El budismo es ateo en el sentido de que no postula un Dios creador que juzga. El sufrimiento no es castigo divino sino consecuencia de la ignorancia y el apego. Esta diferencia estructural con el teísmo abrahámico (judaísmo, cristianismo, islam) es fundamental para comparar estas tradiciones.' }
+          },
+          {
+            heading: 'Impermanencia: todo cambia',
+            text: '<p>Una de las tres marcas de la existencia en el budismo es la <em>anicca</em> (impermanencia): nada es permanente, incluyendo el yo. Este concepto —que el "yo" es una ilusión— es la aportación filosófica más radical del budismo y la más alejada del sentido común occidental.</p>',
+            quote: { text: 'Todos los fenómenos condicionados son impermanentes. Cuando uno ve esto con sabiduría, uno se aparta del sufrimiento.', cite: 'Dhammapada 20:4' },
+            note: { label: 'Relevancia contemporánea', text: 'La meditación de atención plena (mindfulness) que se ha popularizado en Occidente en los últimos 30 años está directamente basada en técnicas descritas en el Sutta Pitaka. Sin embargo, en su versión occidental suele despojarse del marco filosófico budista (incluyendo la impermanencia y el no-yo), lo que algunos académicos llaman "McMindfulness".' }
+          }
+        ]
+      },
+      {
+        id: 'lotus', title: 'Sutra del Loto', dot: '#85B7EB',
+        meta: '~100 d.C. · Mahayana · fundamental en Japón y China',
+        section: 'Sutras Mahayana — segunda revelación',
+        sourceLabel: 'suttacentral.net', sourceUrl: 'https://suttacentral.net/law',
+        isSummarized: true,
+        fullTextUrl: 'https://www.sacred-texts.com/bud/lotus/index.htm',
+        cards: [
+          {
+            heading: 'Un Buda muy diferente al histórico',
+            text: '<p>El Sutra del Loto (<em>Saddharmapundarika Sutra</em>) presenta al Buda no como un maestro humano histórico que alcanzó el nirvana, sino como un ser cósmico y eterno que solo "aparentó" nacer, iluminarse y morir para dar ejemplo a los seres humanos.</p><p>Este giro es tan radical que el budismo Theravada rechaza completamente el texto: para ellos, el Buda Gautama fue un ser humano histórico, no un dios.</p>',
+            note: { label: 'Legitimidad cuestionada', text: 'Los sutras Mahayana no pretenden ser palabras del Buda histórico: son "revelaciones" escritas siglos después. El argumento de legitimidad mahayana es que el Buda preservó estas enseñanzas en reinos celestiales para revelarlas cuando la humanidad estuviera lista. El Theravada considera esto una invención tardía sin base en las enseñanzas originales.' }
+          }
+        ]
+      }
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+let selectedRelId = null;
+let activeSection = 'explore';
+let learnRelId = null;
+let learnBookId = null;
+let learnCard = 0;
+
+// ═══════════════════════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════════════════════
+function showSection(id) {
+  activeSection = id;
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if (b.textContent.trim().toLowerCase().includes(id === 'explore' ? 'explor' : id === 'learn' ? 'aprend' : 'fuent')) b.classList.add('active');
+  });
+  if (id === 'learn') renderLearnSidebar();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// EXPLORE
+// ═══════════════════════════════════════════════════════════════
+function renderExplore() {
+  const grid = document.getElementById('rel-grid');
+  grid.innerHTML = RELIGIONS.map(r => `
+    <div class="rel-card ${selectedRelId === r.id ? 'selected' : ''}"
+         style="--accent:${r.accent}"
+         onclick="selectReligion('${r.id}')">
+      <div class="rel-icon">${r.icon}</div>
+      <div class="rel-name">${r.name}</div>
+      <div class="rel-followers">${r.followers}</div>
+    </div>
+  `).join('');
+
+  const wrap = document.getElementById('books-panel-wrap');
+  if (!selectedRelId) { wrap.innerHTML = ''; return; }
+
+  const rel = RELIGIONS.find(r => r.id === selectedRelId);
+  const sections = {};
+  rel.books.forEach(b => {
+    if (!sections[b.section]) sections[b.section] = [];
+    sections[b.section].push(b);
+  });
+
+  let html = `
+    <div class="books-panel">
+      <div class="books-panel-header">
+        <div class="books-panel-icon">${rel.icon}</div>
+        <div>
+          <div class="books-panel-title">${rel.name}</div>
+          <div class="books-panel-desc">${rel.desc}</div>
+        </div>
+      </div>
+  `;
+
+  Object.entries(sections).forEach(([sec, books]) => {
+    html += `<div class="book-section-label">${sec}</div>`;
+    books.forEach(b => {
+      html += `
+        <div class="book-row">
+          <div class="book-dot" style="background:${b.dot}"></div>
+          <div class="book-info">
+            <div class="book-title-text">${b.title}</div>
+            <div class="book-meta">${b.meta}</div>
+          </div>
+          <a class="book-source-link" href="${b.sourceUrl}" target="_blank" rel="noopener">
+            ↗ ${b.sourceLabel}
+          </a>
+        </div>
+      `;
+    });
+  });
+
+  html += `</div>`;
+  wrap.innerHTML = html;
+}
+
+function selectReligion(id) {
+  selectedRelId = selectedRelId === id ? null : id;
+  renderExplore();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LEARN — SIDEBAR
+// ═══════════════════════════════════════════════════════════════
+function renderLearnSidebar() {
+  const list = document.getElementById('sidebar-list');
+  let html = '';
+  RELIGIONS.forEach(rel => {
+    html += `<div class="sidebar-rel">${rel.icon} ${rel.name}</div>`;
+    rel.books.forEach(b => {
+      const isActive = learnRelId === rel.id && learnBookId === b.id;
+      html += `
+        <div class="sidebar-book ${isActive ? 'active' : ''}"
+             onclick="selectLearnBook('${rel.id}','${b.id}')">
+          <div class="sidebar-dot" style="background:${b.dot}"></div>
+          ${b.title.replace(/\s*\(.*?\)/g, '').trim()}
+        </div>
+      `;
+    });
+  });
+  list.innerHTML = html;
+}
+
+function selectLearnBook(relId, bookId) {
+  learnRelId = relId;
+  learnBookId = bookId;
+  learnCard = 0;
+  renderLearnSidebar();
+  renderLearnMain();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LEARN — MAIN
+// ═══════════════════════════════════════════════════════════════
+function renderLearnMain() {
+  const rel = RELIGIONS.find(r => r.id === learnRelId);
+  const book = rel.books.find(b => b.id === learnBookId);
+  const card = book.cards[learnCard];
+  const total = book.cards.length;
+  const pct = Math.round(((learnCard + 1) / total) * 100);
+
+  let html = `
+    <div class="learn-top">
+      <div>
+        <div class="learn-top-title">${book.title}</div>
+        <div class="learn-top-meta">${rel.icon} ${rel.name} · ${book.meta}</div>
+      </div>
+      <a class="source-pill" href="${book.sourceUrl}" target="_blank" rel="noopener">
+        ↗ ${book.sourceLabel}
+      </a>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="progress-label">${learnCard + 1} / ${total}</div>
+    </div>
+
+    <div class="cards-area">
+      <div class="card">
+  `;
+
+  if (card.image) {
+    html += `
+      <img class="card-img" src="${card.image}" alt="${card.heading}" loading="lazy" onerror="this.style.display='none'">
+      <div class="card-img-caption">${card.imageCaption}</div>
+    `;
+  }
+
+  html += `
+      <div class="card-body">
+        <div class="card-num">TARJETA ${learnCard + 1} DE ${total}</div>
+        <div class="card-heading">${card.heading}</div>
+        <div class="card-text">${card.text}</div>
+  `;
+
+  if (card.quote) {
+    html += `
+        <blockquote class="card-quote">
+          "${card.quote.text}"
+          <cite>${card.quote.cite}</cite>
+        </blockquote>
+    `;
+  }
+
+  if (card.note) {
+    html += `
+        <div class="card-note">
+          <div class="card-note-label">⚑ ${card.note.label}</div>
+          <div class="card-note-text">${card.note.text}</div>
+        </div>
+    `;
+  }
+
+  html += `</div></div>`; // close card-body, card
+
+  if (book.isSummarized) {
+    html += `
+      <div class="card-summary-notice">
+        <span style="font-size:16px;flex-shrink:0">📄</span>
+        <span>Este texto es extenso. Las tarjetas muestran un resumen estructurado manteniendo el sentido original.
+        <a href="${book.fullTextUrl}" target="_blank" rel="noopener">Leer el texto completo en ${book.sourceLabel} →</a></span>
+      </div>
+    `;
+  }
+
+  html += `
+    <div class="card-nav">
+      ${learnCard > 0 ? `<button class="nav-arrow" onclick="moveCard(-1)">← Anterior</button>` : ''}
+      ${learnCard < total - 1
+        ? `<button class="nav-arrow primary" onclick="moveCard(1)">Siguiente →</button>`
+        : `<a class="nav-arrow primary" href="${book.fullTextUrl}" target="_blank" rel="noopener">Leer texto completo ↗</a>`
+      }
+    </div>
+  `;
+
+  document.getElementById('learn-main').innerHTML = html;
+}
+
+function moveCard(dir) {
+  const rel = RELIGIONS.find(r => r.id === learnRelId);
+  const book = rel.books.find(b => b.id === learnBookId);
+  learnCard = Math.max(0, Math.min(book.cards.length - 1, learnCard + dir));
+  renderLearnMain();
+  document.getElementById('learn-main').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+renderExplore();
+</script>
+</body>
+</html>
