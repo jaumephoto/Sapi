@@ -111,12 +111,12 @@ button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
 .sidebar-scroll::-webkit-scrollbar{width:3px}
 .sidebar-scroll::-webkit-scrollbar-thumb{background:var(--rule);border-radius:2px}
 .sura-group-label{padding:7px 12px 5px;font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-3);background:var(--paper-3);border-bottom:1px solid var(--rule-soft);position:sticky;top:0;z-index:2}
-.sura-item{display:flex;align-items:center;gap:8px;padding:6px 12px;cursor:pointer;border-bottom:1px solid var(--rule-soft);transition:background .12s}
+.sura-item{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--rule-soft);transition:background .12s;min-height:44px}
 .sura-item:hover{background:var(--paper-3)}
 .sura-item.active{background:var(--paper);border-left:2px solid var(--ink)}
 .sura-item-num{font-family:var(--mono);font-size:9px;color:var(--ink-3);min-width:22px;font-variant-numeric:tabular-nums}
 .sura-item-name{flex:1}
-.sura-item-name .tr{font-size:11px;color:var(--ink);display:block;line-height:1.2}
+.sura-item-name .tr{font-size:11px;color:var(--ink);display:block;line-height:1.4}
 .sura-item-name .es{font-size:9px;color:var(--ink-3);display:block}
 .sura-item.active .sura-item-name .tr{font-weight:600}
 .sura-item-n{font-family:var(--mono);font-size:9px;color:var(--ink-3);font-variant-numeric:tabular-nums}
@@ -167,7 +167,7 @@ button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
 .verse-item{display:grid;grid-template-columns:52px 1fr auto;align-items:start;padding:16px 20px;border-bottom:1px solid var(--rule-soft);transition:background .12s}
 .verse-item:last-child{border-bottom:none}
 .verse-item:hover{background:var(--paper-2)}
-.verse-ref{font-family:var(--mono);font-size:10px;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums;border-right:1px solid var(--rule-soft);margin-right:20px}
+.verse-ref{font-family:var(--mono);font-size:10px;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums;border-right:1px solid var(--rule-soft);padding-right:16px;margin-right:16px;min-width:56px}
 .verse-text{font-family:var(--serif);font-size:19px;line-height:1.6;color:var(--ink)}
 .pin-btn{background:transparent;border:1px solid transparent;color:var(--ink-3);font-size:16px;padding:3px 6px;border-radius:var(--r-sm);transition:all .15s;flex-shrink:0;margin-left:10px;margin-top:1px;opacity:0;line-height:1}
 .verse-item:hover .pin-btn{opacity:1}
@@ -262,18 +262,98 @@ button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
 [dir="rtl"] { text-align: right; }
 .verse-text[dir="rtl"] { font-size: 22px; line-height: 1.9; }
 
-@media(max-width:900px){
-  .topbar{padding:0 16px;grid-template-columns:auto 1fr auto;gap:8px}
-  .brand .tag{display:none}
-  .nav-btn{padding:8px 10px;font-size:10px}
-  .home-wrap,.rel-detail-wrap{padding:28px 20px 60px}
-  .religions-grid{grid-template-columns:1fr 1fr}
-  .reader-layout,.reader-layout.pins-open,.reader-layout.sidebar-collapsed,.reader-layout.sidebar-collapsed.pins-open{grid-template-columns:0px 1fr 0px!important}
-  .reader-sidebar{display:none}
-  .reader-main{padding:20px}
-  .bot-wrap,.coming-wrap{padding:40px 20px}
+/* ── TABLET ── */
+@media(max-width:1024px){
+  .reader-layout{grid-template-columns:200px 1fr 0px}
+  .reader-layout.pins-open{grid-template-columns:200px 1fr 260px}
+  .reader-main{padding:28px 32px}
 }
-@media(max-width:500px){.religions-grid{grid-template-columns:1fr}}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  /* topbar */
+  .topbar{padding:0 14px;grid-template-columns:1fr auto;gap:6px;height:50px}
+  .brand .tag{display:none}
+  .nav{display:none}
+  .topbar-right{gap:6px}
+  .sources-link{display:none}
+
+  /* mobile nav bar at bottom */
+  .mobile-nav{display:flex}
+
+  /* home */
+  .home-wrap{padding:24px 16px 100px}
+  .religions-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .rel-tile-main{padding:20px 16px 14px}
+  .rel-tile-name{font-size:20px}
+
+  /* religion detail */
+  .rel-detail-wrap{padding:24px 16px 100px}
+  .rel-detail-name{font-size:32px}
+  .rel-detail-header{flex-direction:column;gap:12px}
+  .rel-detail-icon{font-size:36px}
+  .books-grid{grid-template-columns:1fr}
+
+  /* reader */
+  .reader-layout,.reader-layout.pins-open,.reader-layout.sidebar-collapsed,.reader-layout.sidebar-collapsed.pins-open{
+    grid-template-columns:0px 1fr 0px!important;
+    height:calc(100vh - 50px - 56px)
+  }
+  .reader-sidebar{display:none}
+  .reader-main{padding:16px 16px 80px}
+  .sura-header{flex-direction:column;gap:12px}
+  .sura-header-right{align-items:flex-start;width:100%}
+  .lang-switcher{width:100%;justify-content:center}
+  .sura-title-big{font-size:28px}
+  .verse-text{font-size:16px}
+  .verse-ref{min-width:44px;font-size:9px}
+  .card-nav{gap:6px}
+  .nav-arrow{padding:9px 14px;font-size:9px}
+
+  /* pins panel */
+  .pins-panel{position:fixed;right:0;top:50px;bottom:56px;width:100vw;z-index:180;border-left:none;border-top:1px solid var(--rule)}
+  .reader-layout.pins-open{grid-template-columns:0px 1fr 0px!important}
+
+  /* buscador */
+  .bot-wrap{padding:20px 16px 80px}
+  .bot-title{font-size:26px}
+
+  /* coming */
+  .coming-wrap{padding:40px 16px 80px}
+  .coming-title{font-size:36px}
+}
+
+/* ── SMALL MOBILE ── */
+@media(max-width:400px){
+  .religions-grid{grid-template-columns:1fr}
+  .rel-tile-name{font-size:22px}
+  .sura-title-big{font-size:24px}
+  .continue-card{width:160px}
+}
+
+/* ── MOBILE BOTTOM NAV ── */
+.mobile-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  height:56px;
+  background:var(--paper);
+  border-top:1px solid var(--rule);
+  z-index:300;
+  justify-content:space-around;
+  align-items:center;
+  padding:0 8px;
+}
+.mobile-nav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:transparent;border:none;
+  color:var(--ink-3);
+  font-family:var(--mono);font-size:8px;
+  text-transform:uppercase;letter-spacing:.1em;
+  padding:6px 16px;border-radius:var(--r-sm);
+  transition:all .15s;flex:1;
+}
+.mobile-nav-btn:hover,.mobile-nav-btn.active{color:var(--ink);background:var(--paper-2)}
+.mobile-nav-btn .icon{font-size:18px;line-height:1}
 </style>
 </head>
 <body>
@@ -297,6 +377,22 @@ button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
     <button class="icon-btn" onclick="toggleTheme()" title="Cambiar tema" id="theme-btn">☀</button>
   </div>
 </header>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-btn active" id="mnav-estudio" onclick="showScreenMobile('estudio')">
+    <span class="icon">📖</span>Estudio
+  </button>
+  <button class="mobile-nav-btn" id="mnav-aprende" onclick="showScreenMobile('aprende')">
+    <span class="icon">✏️</span>Aprende
+  </button>
+  <button class="mobile-nav-btn" id="mnav-buscador" onclick="showScreenMobile('buscador')">
+    <span class="icon">🔍</span>Buscar
+  </button>
+  <button class="mobile-nav-btn" id="mnav-pins" onclick="togglePins()">
+    <span class="icon">⊕</span>Pines
+  </button>
+</nav>
 
 <!-- HOME -->
 <div class="screen active" id="screen-home">
@@ -439,71 +535,71 @@ const RELIGIONS = [
     sections:[
       { label:'Revelación directa — Corán', books:[
         { id:'quran', name:'Corán', meta:'114 suras · 6.236 versículos · ~650 d.C.',
-          desc:'La palabra literal de Dios dictada al profeta Mahoma entre 610 y 632 d.C.',
+          desc:'La palabra literal de Dios dictada al profeta Mahoma entre 610 y 632 d.C. 114 capítulos (suras), de los cuales los primeros son espirituales y contemplativos, y los últimos, más legales y políticos. Es la base de todo el derecho islámico.',
           source:'tanzil.net', sourceUrl:'https://tanzil.net',
           langs:{ es:'data/islam/quran_es.json', en:'data/islam/quran_en.json', ar:'data/islam/quran_ar.json' },
           type:'quran' }
       ]},
       { label:'Sunna — Los Seis Libros (Kutub al-Sitta)', books:[
         { id:'bukhari', name:'Sahih al-Bujari', meta:'7.277 hadiths · ~846 d.C.',
-          desc:'La colección de hadith más respetada del islam sunní. Segunda fuente del derecho islámico.',
+          desc:'7.277 relatos verificados sobre los dichos y actos del Profeta. Al-Bujari revisó 600.000 relatos y seleccionó solo estos. Fuente primaria de la ley islámica: la lapidación por adulterio, por ejemplo, no está en el Corán — está aquí.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/bukhari',
           langs:{ en:'data/islam/hadith_bukhari.json', ar:'data/islam/hadith_bukhari.json' },
           type:'hadith' },
         { id:'muslim', name:'Sahih Muslim', meta:'7.368 hadiths · ~875 d.C.',
-          desc:'Segunda colección más importante del islam sunní. Junto a al-Bujari forma los "Dos Sahih".',
+          desc:'7.368 hadith de Imam Muslim, compilados con un método más sistemático que al-Bujari. Juntos forman los "Dos Sahih", los dos pilares del derecho islámico sunní. Contiene hadith exclusivos sobre escatología y jurisprudencia.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/muslim',
           langs:{ en:'data/islam/hadith_muslim.json', ar:'data/islam/hadith_muslim.json' },
           type:'hadith' },
         { id:'nasai', name:"Sunan an-Nasa'i", meta:'5.768 hadiths · ~915 d.C.',
-          desc:'Tercera de las Seis Colecciones. Destaca por su rigor crítico en la verificación.',
+          desc:'5.768 hadith con énfasis especial en rituales de pureza y oración. Al-Nasa\'i era conocido por rechazar hadith que otros aceptaban. La versión larga (al-Sunan al-Kubra) incluye hadith que otros rechazaron.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/nasai',
           langs:{ en:'data/islam/hadith_nasai.json', ar:'data/islam/hadith_nasai.json' },
           type:'hadith' },
         { id:'abudawud', name:'Sunan Abi Dawud', meta:'5.276 hadiths · ~889 d.C.',
-          desc:'Especializada en derecho islámico (fiqh). Fuente clave para la jurisprudencia.',
+          desc:'5.276 hadith organizados por materias jurídicas: guerra, familia, comercio, castigos. Es la colección más consultada por jueces islámicos. Contiene los hadith sobre la apostasía y la pena de muerte que son centrales en el debate contemporáneo.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/abudawud',
           langs:{ en:'data/islam/hadith_abudawud.json', ar:'data/islam/hadith_abudawud.json' },
           type:'hadith' },
         { id:'tirmidhi', name:"Jami' at-Tirmidhi", meta:'4.053 hadiths · ~892 d.C.',
-          desc:'Incluye el grado de autenticidad de cada hadith. Muy usada en teología y ética.',
+          desc:'4.053 hadith clasificados por el propio al-Tirmidhi en grados de autenticidad (sahih, hasan, da\'if). Es la única colección que incluye esta valoración interna. Muy usada en debates teológicos sobre qué hadith son vinculantes.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/tirmidhi',
           langs:{ en:'data/islam/hadith_tirmidhi.json', ar:'data/islam/hadith_tirmidhi.json' },
           type:'hadith' },
         { id:'ibnmajah', name:'Sunan Ibn Majah', meta:'4.345 hadiths · ~887 d.C.',
-          desc:'El sexto de los Kutub al-Sitta. Contiene hadith únicos no recogidos en otras colecciones.',
+          desc:'4.345 hadith, muchos de los cuales no aparecen en otras colecciones. Fue el texto más criticado del canon: algunos eruditos cuestionaron su inclusión. Contiene reglas sobre matrimonio, divorcio y límites corporales (hudud) especialmente detalladas.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/ibnmajah',
           langs:{ en:'data/islam/hadith_ibnmajah.json', ar:'data/islam/hadith_ibnmajah.json' },
           type:'hadith' },
       ]},
       { label:'Sunna — Colecciones adicionales', books:[
         { id:'malik', name:'Muwatta Malik', meta:'1.848 hadiths · ~795 d.C.',
-          desc:'La colección más antigua. Base del derecho malikí, predominante en el norte de África.',
+          desc:'El texto islámico legal más antiguo que existe, compilado por Malik ibn Anas (~795 d.C.). Es la base del derecho malikí, seguido en Marruecos, Argelia, Túnez y el África subsahariana. Mezcla hadith con la práctica jurídica de Medina.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/malik',
           langs:{ en:'data/islam/hadith_malik.json', ar:'data/islam/hadith_malik.json' },
           type:'hadith' },
         { id:'ahmad', name:'Musnad Ahmad', meta:'4.346 hadiths',
-          desc:'Compilación del Imam Ahmad ibn Hanbal. Base del derecho hanbalí y del salafismo.',
+          desc:'4.346 hadith compilados por Ahmad ibn Hanbal, fundador de la escuela hanbalí. Esta escuela es la base teológica del wahabismo y el salafismo modernos. Hanbal fue encarcelado por negarse a aceptar que el Corán era creado (no eterno).',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/ahmad',
           langs:{ en:'data/islam/hadith_ahmad.json', ar:'data/islam/hadith_ahmad.json' },
           type:'hadith' },
         { id:'nawawi40', name:"40 Hadith de Nawawi", meta:'122 hadiths · s. XIII d.C.',
-          desc:'Los cuarenta hadith más importantes según el Imam Nawawi. Texto de referencia en la educación islámica.',
+          desc:'122 hadith seleccionados como los más esenciales del islam por el Imam Nawawi (s. XIII). Es el primer texto que estudian los estudiantes de teología islámica en todo el mundo. Incluye el famoso hadith: "Las acciones se juzgan por las intenciones".',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/nawawi40',
           langs:{ en:'data/islam/hadith_nawawi40.json', ar:'data/islam/hadith_nawawi40.json' },
           type:'hadith' },
         { id:'riyadh', name:'Riyad as-Salihin', meta:'1.896 hadiths · s. XIII d.C.',
-          desc:'Selección de hadith sobre ética y espiritualidad. El libro islámico de piedad personal más leído.',
+          desc:'1.896 hadith organizados temáticamente: sinceridad, paciencia, gratitud, justicia. Es el equivalente islámico a un libro de espiritualidad práctica. El más leído en hogares musulmanes después del Corán. Compilado por al-Nawawi en el s. XIII.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/riyadhussalihin',
           langs:{ en:'data/islam/hadith_riyadh.json', ar:'data/islam/hadith_riyadh.json' },
           type:'hadith' },
         { id:'adab', name:'Al-Adab Al-Mufrad', meta:'1.326 hadiths · ~870 d.C.',
-          desc:'Compilación de al-Bujari sobre ética social y comportamiento cotidiano.',
+          desc:'1.326 hadith del propio al-Bujari sobre modales, relaciones sociales, trato a vecinos, padres e hijos. Diferente a su Sahih: aquí al-Bujari incluye hadith que él mismo consideraba débiles porque los creía útiles para la educación moral.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/adab',
           langs:{ en:'data/islam/hadith_adab.json', ar:'data/islam/hadith_adab.json' },
           type:'hadith' },
         { id:'bulugh', name:'Bulugh al-Maram', meta:'1.767 hadiths · s. XIV d.C.',
-          desc:'Hadith sobre jurisprudencia práctica. Texto de referencia en el mundo sunní para el fiqh.',
+          desc:'1.767 hadith seleccionados exclusivamente por su relevancia jurídica. Ibn Hajar al-Asqalani organizó los hadith de los Seis Libros por temas legales. Es el manual de referencia para jueces y estudiantes de derecho islámico en el mundo árabe.',
           source:'sunnah.com', sourceUrl:'https://sunnah.com/bulugh',
           langs:{ en:'data/islam/hadith_bulugh.json', ar:'data/islam/hadith_bulugh.json' },
           type:'hadith' },
@@ -515,22 +611,22 @@ const RELIGIONS = [
     sections:[
       { label:'Escritura sagrada', books:[
         { id:'nt', name:'Nuevo Testamento', meta:'27 libros · Evangelios y Epístolas',
-          desc:'Los 27 libros del NT, comunes a todas las ramas del cristianismo.',
+          desc:'4 Evangelios (Mateo, Marcos, Lucas, Juan), Hechos de los Apóstoles, 13 cartas de Pablo y el Apocalipsis. Canon definitivo desde el Concilio de Cartago (397 d.C.). Nótese: el proceso de selección tardó 400 años y dejó fuera decenas de evangelios.',
           source:'KJV 1769', sourceUrl:'https://github.com/seven1m/bible_api',
           langs:{ en:'data/christianity/nt_en.json' },
           type:'bible' },
         { id:'ot-hist', name:'AT — Libros históricos', meta:'12 libros · Josué a Ester',
-          desc:'Josué, Jueces, Rut, Samuel, Reyes, Crónicas, Esdras, Nehemías, Ester.',
+          desc:'12 libros que narran la historia de Israel desde la conquista de Canaán hasta el retorno del exilio babilónico. Contienen las guerras de exterminio (herem) ordenadas por Dios a Josué, que son el texto bíblico más invocado para justificar la violencia religiosa.',
           source:'KJV 1769', sourceUrl:'https://github.com/seven1m/bible_api',
           langs:{ en:'data/christianity/historical_en.json' },
           type:'bible' },
         { id:'ot-wisdom', name:'AT — Libros sapienciales', meta:'5 libros · Job a Cantar',
-          desc:'Job, Salmos, Proverbios, Eclesiastés y el Cantar de los Cantares.',
+          desc:'Los 5 libros poéticos y sapienciales. Job plantea el problema del mal ante un Dios justo. El Eclesiastés es el texto más escéptico de la Biblia ("Todo es vanidad"). El Cantar de los Cantares es erótico — su inclusión en el canon fue debatida durante siglos.',
           source:'KJV 1769', sourceUrl:'https://github.com/seven1m/bible_api',
           langs:{ en:'data/christianity/wisdom_en.json' },
           type:'bible' },
         { id:'ot-proph', name:'AT — Profetas', meta:'17 libros · Isaías a Malaquías',
-          desc:'Isaías, Jeremías, Ezequiel, Daniel y los doce profetas menores.',
+          desc:'17 libros proféticos del s. VIII al V a.C. Isaías contiene el pasaje del "siervo sufriente" que los cristianos interpretaron como profecía de Jesús — los judíos lo rechazan. Daniel es el único libro apocalíptico del AT y fue escrito siglos después de los eventos que describe.',
           source:'KJV 1769', sourceUrl:'https://github.com/seven1m/bible_api',
           langs:{ en:'data/christianity/prophets_en.json' },
           type:'bible' }
@@ -554,7 +650,7 @@ const RELIGIONS = [
     sections:[
       { label:'Escritura sagrada', books:[
         { id:'bible-prot', name:'Biblia Protestante', meta:'66 libros · KJV 1769',
-          desc:'La Biblia King James de 1769: 39 libros del AT + 27 del NT.',
+          desc:'66 libros. El canon protestante excluye los 7 deuterocanónicos que el catolicismo acepta. Esta decisión de Lutero fue política: eliminó los libros que apoyaban la doctrina del Purgatorio. La ironía: Lutero invocó "Sola Scriptura" pero fue él quien decidió qué es Escritura.',
           source:'KJV 1769', sourceUrl:'https://github.com/seven1m/bible_api',
           langs:{ en:'data/christianity/nt_en.json' },
           type:'bible' }
@@ -566,7 +662,7 @@ const RELIGIONS = [
     sections:[
       { label:'Torah escrita', books:[
         { id:'torah', name:'Torah', meta:'5 libros de Moisés · KJV 1769',
-          desc:'Génesis, Éxodo, Levítico, Números y Deuteronomio. 5.852 versículos.',
+          desc:'Los cinco libros de Moisés: 5.852 versículos y 613 mandamientos (mitzvot). Contienen las leyes de pureza, los sacrificios animales, las penas de muerte por adulterio y homosexualidad, y las guerras de exterminio. La crítica académica identifica al menos 4 autores distintos, no uno solo.',
           source:'KJV 1769', sourceUrl:'https://www.sefaria.org',
           langs:{ en:'data/christianity/torah_en.json' },
           type:'bible' }
@@ -578,7 +674,7 @@ const RELIGIONS = [
     sections:[
       { label:'Smriti', books:[
         { id:'gita', name:'Bhagavad Gita', meta:'18 capítulos · 700 versos · trad. dominio público',
-          desc:'El texto más leído del hinduismo. Krishna explica el dharma, karma y bhakti a Arjuna.',
+          desc:'700 versos en los que el dios Krishna convence al guerrero Arjuna de que debe luchar y matar a sus propios parientes porque es su deber de casta. Ha sido interpretado como metáfora espiritual y como justificación de la violencia. Gandhi lo usó para la no-violencia; su asesino Godse también lo citó.',
           source:'Edwin Arnold, 1885', sourceUrl:'https://www.sacred-texts.com/hin/gita/',
           langs:{ en:'data/hinduism/gita_en.json' },
           type:'gita' }
@@ -590,7 +686,7 @@ const RELIGIONS = [
     sections:[
       { label:'Sutta Pitaka', books:[
         { id:'dhp', name:'Dhammapada', meta:'26 capítulos · 423 versos · trad. dominio público',
-          desc:'Los dichos del Buda. Transmitidos oralmente desde el s. V a.C.',
+          desc:'423 versos atribuidos directamente al Buda Gautama, organizados en 26 capítulos. Comienza: "Todo lo que somos es el resultado de lo que hemos pensado." A diferencia de otros textos sagrados, no hay un dios que juzga: el sufrimiento es consecuencia de la ignorancia y el apego.',
           source:'F. Max Müller, 1881', sourceUrl:'https://www.sacred-texts.com/bud/dhp/',
           langs:{ en:'data/buddhism/dhammapada_en.json' },
           type:'dhammapada' }
@@ -749,7 +845,7 @@ function renderSidebarList(filter){
   } else {
     // Bible / Gita / Dhammapada: list by chapter/book
     curTextData.forEach((item,idx)=>{
-      const name=item.name||(item.title?`Cap. ${item.ch}: ${item.title}`:`Capítulo ${item.ch||idx+1}`);
+      const name=item.name||(item.title?`${item.ch}. ${item.title}`:`Capítulo ${item.ch||idx+1}`);
       if(fl&&!name.toLowerCase().includes(fl))return;
       const verseCount=item.chapters?item.chapters.reduce((a,c)=>a+c.verses.length,0):item.verses?item.verses.length:0;
       html+=`<div class="sura-item ${curItemId===idx?'active':''}" onclick="selectItem(${idx})">
@@ -899,7 +995,7 @@ function renderQuranCard(book){
     <div class="sura-header">
       <div>
         <div class="sura-num-label">Sura ${sura.id} · ${sura.ar}</div>
-        <div class="sura-title-big">${sura.tr} <em>— ${sura.es}</em></div>
+        <div class="sura-title-big">${sura.tr}${curLang!=='ar'&&sura.es?' <em>— '+sura.es+'</em>':''}</div>
         <div class="sura-badges">
           <span class="sura-badge ${typeClass}">${typeLabel}</span>
           <span class="sura-badge">${sura.n} versículos</span>
@@ -1001,12 +1097,13 @@ function renderHadithCard(book){
     const isPinned=pins.some(p=>p.suraId===curItemId&&p.ayaId===vi+start);
     const displayText=showAr?h.ar:h.en;
     const ts=(displayText||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-    return `<div class="verse-item" style="grid-template-columns:60px 1fr auto">
-      <div class="verse-ref" style="font-size:9px">${h.ref?h.ref.split(',')[0]:h.num||''}</div>
-      <div style="display:flex;flex-direction:column;gap:8px;padding-right:8px">
-        ${h.narrator?`<div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)">${h.narrator}</div>`:''}
-        <div class="verse-text" ${showAr?'dir="rtl" style="font-size:21px;line-height:1.8;font-family:var(--serif)"':''}>${displayText||''}</div>
-        ${h.grade?`<div style="font-family:var(--mono);font-size:9px;color:var(--ink-3);padding-top:4px;border-top:1px solid var(--rule-soft)">${h.grade}</div>`:''}
+    const hadithNum=h.num||vi+start+1;
+    return `<div class="verse-item" style="grid-template-columns:48px 1fr auto;align-items:start">
+      <div class="verse-ref" style="min-width:48px;font-size:10px;padding-top:4px;font-variant-numeric:tabular-nums">${hadithNum}</div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding-right:8px">
+        ${h.narrator?`<div style="font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--ink-3)">${h.narrator}</div>`:''}
+        <div style="font-family:var(--serif);font-size:18px;line-height:1.7;color:var(--ink)" ${showAr?'dir="rtl"':''}>${displayText||''}</div>
+        ${h.grade?`<div style="font-family:var(--mono);font-size:9px;color:var(--ink-3);padding-top:6px;border-top:1px solid var(--rule-soft)">${h.grade}</div>`:''}
       </div>
       <button class="pin-btn ${isPinned?'pinned':''}" onclick="togglePin(${JSON.stringify({relId:curRelId,relName:'Islam',suraId:curItemId,suraName:data.name_en,ayaId:vi+start,text:ts})})" title="${isPinned?'Quitar pin':'Añadir pin'}">${isPinned?'◆':'◇'}</button>
     </div>`;
