@@ -891,7 +891,7 @@ function renderHadithSidebar(filter=''){
     const firstH=curTextData.hadiths[start];
     const ref=firstH.ref?firstH.ref.split(',')[0]:String(start+1);
     if(fl&&!ref.toLowerCase().includes(fl)&&!firstH.narrator.toLowerCase().includes(fl))continue;
-    const narratorShort=firstH.narrator?firstH.narrator.replace(/^Narrated\s+/i,'').split('(')[0].trim():'';
+    const narratorShort=firstH.narrator?firstH.narrator.replace(/^Narrated /i,'').split('(')[0].trim():'';
     html+=`<div class="sura-item ${curPage===i?'active':''}" onclick="jumpToPage(${i})">
       <div class="sura-item-num" style="padding-top:3px">${i+1}</div>
       <div class="sura-item-name">
