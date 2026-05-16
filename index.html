@@ -18,7 +18,7 @@ button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
 .brand{display:flex;align-items:baseline;gap:14px;cursor:pointer;user-select:none}
 .brand .mark{font-family:var(--serif);font-size:26px;font-weight:500;font-style:italic;letter-spacing:-.02em;color:var(--ink);transition:opacity .15s}
 .brand:hover .mark{opacity:.7}
-.brand .tag{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-3);border-left:1px solid var(--rule);padding-left:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.brand .tag{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-3);border-left:1px solid var(--rule);padding-left:12px}
 .nav{display:flex;align-items:center;gap:2px}
 .nav-btn{background:transparent;border:1px solid transparent;color:var(--ink-3);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;padding:9px 18px;border-radius:var(--r-sm);transition:all .15s}
 .nav-btn:hover{color:var(--ink);background:var(--paper-2)}
@@ -37,7 +37,7 @@ button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
 
 /* ══ HOME ══ */
 .home-wrap{max-width:1100px;margin:0 auto;padding:48px 40px 80px}
-.doodle-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:32px}
+.doodle-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:44px}
 .doodle-gif{width:100px;height:auto}
 .continue-section{margin-bottom:44px}
 .continue-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
@@ -111,12 +111,12 @@ button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
 .sidebar-scroll::-webkit-scrollbar{width:3px}
 .sidebar-scroll::-webkit-scrollbar-thumb{background:var(--rule);border-radius:2px}
 .sura-group-label{padding:7px 12px 5px;font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-3);background:var(--paper-3);border-bottom:1px solid var(--rule-soft);position:sticky;top:0;z-index:2}
-.sura-item{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--rule-soft);transition:background .12s;min-height:44px}
+.sura-item{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--rule-soft);transition:background .12s;min-height:44px}
 .sura-item:hover{background:var(--paper-3)}
 .sura-item.active{background:var(--paper);border-left:2px solid var(--ink)}
-.sura-item-num{font-family:var(--mono);font-size:9px;color:var(--ink-3);min-width:22px;font-variant-numeric:tabular-nums;flex-shrink:0;padding-top:2px}
-.sura-item-name{flex:1;min-width:0}
-.sura-item-name .tr{font-size:11px;color:var(--ink);display:block;line-height:1.4;word-break:break-word}
+.sura-item-num{font-family:var(--mono);font-size:9px;color:var(--ink-3);min-width:22px;font-variant-numeric:tabular-nums}
+.sura-item-name{flex:1}
+.sura-item-name .tr{font-size:11px;color:var(--ink);display:block;line-height:1.4}
 .sura-item-name .es{font-size:9px;color:var(--ink-3);display:block}
 .sura-item.active .sura-item-name .tr{font-weight:600}
 .sura-item-n{font-family:var(--mono);font-size:9px;color:var(--ink-3);font-variant-numeric:tabular-nums}
@@ -261,17 +261,6 @@ button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
 /* RTL for Arabic */
 [dir="rtl"] { text-align: right; }
 .verse-text[dir="rtl"] { font-size: 22px; line-height: 1.9; }
-
-/* ── MEDIUM ── */
-@media(max-width:1100px){
-  .brand .tag{max-width:160px}
-  .nav-btn{padding:7px 12px;font-size:10px}
-}
-@media(max-width:960px){
-  .brand .tag{display:none}
-  .nav-btn{padding:7px 10px;font-size:10px;letter-spacing:.08em}
-  .topbar{padding:0 20px}
-}
 
 /* ── TABLET ── */
 @media(max-width:1024px){
@@ -891,13 +880,10 @@ function renderHadithSidebar(filter=''){
     const firstH=curTextData.hadiths[start];
     const ref=firstH.ref?firstH.ref.split(',')[0]:String(start+1);
     if(fl&&!ref.toLowerCase().includes(fl)&&!firstH.narrator.toLowerCase().includes(fl))continue;
-    const narratorShort=firstH.narrator?firstH.narrator.replace(/^Narrated /i,'').split('(')[0].trim():'';
     html+=`<div class="sura-item ${curPage===i?'active':''}" onclick="jumpToPage(${i})">
-      <div class="sura-item-num" style="padding-top:3px">${i+1}</div>
-      <div class="sura-item-name">
-        <span style="font-family:var(--serif);font-size:13px;color:var(--ink);display:block;line-height:1.35">${narratorShort||ref}</span>
-        <span style="font-family:var(--mono);font-size:9px;color:var(--ink-3);display:block">${start+1}–${end}</span>
-      </div>
+      <div class="sura-item-num">${i+1}</div>
+      <div class="sura-item-name"><span class="tr">${ref}</span><span class="es">${firstH.narrator?firstH.narrator.substring(0,30)+'…':''}</span></div>
+      <div class="sura-item-n">${start+1}-${end}</div>
     </div>`;
   }
   document.getElementById('sidebar-list').innerHTML=html;
@@ -959,12 +945,9 @@ function switchLang(lang){
   curLang=lang;
   const rel=RELIGIONS.find(r=>r.id===curRelId);
   const book=rel.sections.flatMap(s=>s.books).find(b=>b.id===curBookId);
-  // Hadith: same file, just re-render with new curLang (showAr reads curLang)
-  if(book.type==='hadith'){
-    renderCards();
-    return;
-  }
   document.getElementById('reader-main').innerHTML=`<div class="loading-state">Cargando ${lang.toUpperCase()}...</div>`;
+  // For hadith, AR and EN use same file
+  if(book.type==='hadith'){ renderCards(); return; }
   loadTextData(book, lang, ()=>{ renderSidebarList(''); renderCards(); });
 }
 
@@ -993,15 +976,11 @@ function renderQuranCard(book){
   const pins=getPins();
   const verseRows=verses.map(v=>{
     const isPinned=pins.some(p=>p.suraId===sura.id&&p.ayaId===v.i);
+    const ts=v.t.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
     return `<div class="verse-item">
       <div class="verse-ref">${sura.id}:${v.i}</div>
       <div class="verse-text">${v.t}</div>
-      <button class="pin-btn ${isPinned?'pinned':''}"
-        data-rel="${curRelId}" data-relname="Islam"
-        data-suraid="${sura.id}" data-suraname="${sura.tr.replace(/"/g,'&quot;')}"
-        data-ayaid="${v.i}" data-text="${v.t.replace(/"/g,'&quot;').replace(/
-/g,' ')}"
-        onclick="togglePinFromBtn(this)" title="${isPinned?'Quitar pin':'Añadir pin'}">${isPinned?'◆':'◇'}</button>
+      <button class="pin-btn ${isPinned?'pinned':''}" onclick="togglePin(${JSON.stringify({relId:curRelId,relName:'Islam',suraId:sura.id,suraName:sura.tr,ayaId:v.i,text:ts})})" title="${isPinned?'Quitar pin':'Añadir pin'}">${isPinned?'◆':'◇'}</button>
     </div>`;
   }).join('');
 
@@ -1065,12 +1044,7 @@ function renderBibleCard(book){
     return `<div class="verse-item">
       <div class="verse-ref" style="font-size:9px">${v.ref}</div>
       <div class="verse-text">${v.t}</div>
-      <button class="pin-btn ${isPinned?'pinned':''}"
-        data-rel="${curRelId}" data-relname="${RELIGIONS.find(r=>r.id===curRelId).name}"
-        data-suraid="${curItemId}" data-suraname="${itemName.replace(/"/g,'&quot;')}"
-        data-ayaid="${vi+start}" data-text="${v.t.replace(/"/g,'&quot;').replace(/
-/g,' ')}"
-        onclick="togglePinFromBtn(this)" title="${isPinned?'Quitar pin':'Añadir pin'}">${isPinned?'◆':'◇'}</button>
+      <button class="pin-btn ${isPinned?'pinned':''}" onclick="togglePin(${JSON.stringify({relId:curRelId,relName:RELIGIONS.find(r=>r.id===curRelId).name,suraId:curItemId,suraName:itemName,ayaId:vi+start,text:ts})})" title="${isPinned?'Quitar pin':'Añadir pin'}">${isPinned?'◆':'◇'}</button>
     </div>`;
   }).join('');
 
@@ -1124,21 +1098,14 @@ function renderHadithCard(book){
     const displayText=showAr?h.ar:h.en;
     const ts=(displayText||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
     const hadithNum=h.num||vi+start+1;
-    return `<div style="padding:18px 20px;border-bottom:1px solid var(--rule-soft);display:flex;flex-direction:column;gap:10px;position:relative">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-family:var(--mono);font-size:9px;color:var(--ink-3);font-variant-numeric:tabular-nums;flex-shrink:0">${hadithNum}</span>
-          ${h.narrator?`<span style="font-family:var(--serif);font-size:15px;font-style:italic;color:var(--ink-2)">${h.narrator}</span>`:''}
-        </div>
-        <button class="pin-btn ${isPinned?'pinned':''}"
-          data-rel="${curRelId}" data-relname="Islam"
-          data-suraid="${curItemId}" data-suraname="${data.name_en.replace(/"/g,'&quot;')}"
-          data-ayaid="${vi+start}" data-text="${(displayText||'').replace(/"/g,'&quot;').replace(/
-/g,' ')}"
-          onclick="togglePinFromBtn(this)" title="${isPinned?'Quitar pin':'Añadir pin'}" style="opacity:1;flex-shrink:0">${isPinned?'◆':'◇'}</button>
+    return `<div class="verse-item" style="grid-template-columns:48px 1fr auto;align-items:start">
+      <div class="verse-ref" style="min-width:48px;font-size:10px;padding-top:4px;font-variant-numeric:tabular-nums">${hadithNum}</div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding-right:8px">
+        ${h.narrator?`<div style="font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--ink-3)">${h.narrator}</div>`:''}
+        <div style="font-family:var(--serif);font-size:18px;line-height:1.7;color:var(--ink)" ${showAr?'dir="rtl"':''}>${displayText||''}</div>
+        ${h.grade?`<div style="font-family:var(--mono);font-size:9px;color:var(--ink-3);padding-top:6px;border-top:1px solid var(--rule-soft)">${h.grade}</div>`:''}
       </div>
-      <div style="font-family:var(--serif);font-size:19px;line-height:1.75;color:var(--ink)" ${showAr?'dir="rtl"':''}>${displayText||''}</div>
-      ${h.grade?`<div style="font-family:var(--mono);font-size:9px;color:var(--ink-3);padding-top:4px;border-top:1px solid var(--rule-soft)">${h.grade}</div>`:''}
+      <button class="pin-btn ${isPinned?'pinned':''}" onclick="togglePin(${JSON.stringify({relId:curRelId,relName:'Islam',suraId:curItemId,suraName:data.name_en,ayaId:vi+start,text:ts})})" title="${isPinned?'Quitar pin':'Añadir pin'}">${isPinned?'◆':'◇'}</button>
     </div>`;
   }).join('');
 
@@ -1252,18 +1219,6 @@ function clearAllHistory(){localStorage.removeItem(HIST_KEY);renderContinue();}
 function getPins(){try{return JSON.parse(localStorage.getItem(PINS_KEY))||[];}catch{return[];}}
 function savePins(pins){localStorage.setItem(PINS_KEY,JSON.stringify(pins));updatePinsBadge();}
 function updatePinsBadge(){const n=getPins().length;const b=document.getElementById('pins-badge');b.style.display=n>0?'grid':'none';b.textContent=n;}
-
-function togglePinFromBtn(btn){
-  const p={
-    relId: btn.dataset.rel,
-    relName: btn.dataset.relname,
-    suraId: isNaN(btn.dataset.suraid)?btn.dataset.suraid:Number(btn.dataset.suraid),
-    suraName: btn.dataset.suraname,
-    ayaId: Number(btn.dataset.ayaid),
-    text: btn.dataset.text
-  };
-  togglePin(p);
-}
 
 function togglePin(pinData){
   if(typeof pinData==='string')pinData=JSON.parse(pinData);
